@@ -54,6 +54,12 @@
             border: 1px solid rgba(56, 189, 248, 0.45);
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
         }
+        .top-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
         .back-btn {
             background: #38bdf8;
             color: #0f172a;
@@ -67,6 +73,24 @@
         }
         .back-btn:hover, .back-btn:focus-visible {
             background: #7dd3fc;
+            transform: translateY(-1px);
+            outline: none;
+        }
+        .restart-btn {
+            background: #4ade80;
+            color: #0f172a;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            transition: background-color 0.2s ease, transform 0.15s ease;
+        }
+        .restart-btn:hover, .restart-btn:focus-visible {
+            background: #22c55e;
             transform: translateY(-1px);
             outline: none;
         }
@@ -149,8 +173,9 @@
         }
         @media (max-width: 640px) {
             body { padding: 10px 12px 24px 12px; }
-            .top-bar { padding: 8px 10px; }
-            .back-btn { padding: 6px 10px; font-size: 0.78rem; }
+            .top-bar { padding: 8px 10px; gap: 6px; }
+            .top-actions { gap: 6px; }
+            .back-btn, .restart-btn { padding: 6px 10px; font-size: 0.78rem; }
             .game-header-title { font-size: 0.92rem; }
             .instructions-box {
                 flex-direction: column;
@@ -169,7 +194,10 @@
 <body>
     <div class="top-section">
         <div class="top-bar">
-            <a href="index.html" class="back-btn">← Πίσω στο Μενού</a>
+            <div class="top-actions">
+                <a href="index.html" class="back-btn">← Πίσω στο Μενού</a>
+                <button type="button" id="restart-btn" class="restart-btn">↻ Παίξε ξανά</button>
+            </div>
             <div class="game-header-title">&gt;_ CrazyFish</div>
         </div>
         <div class="instructions-box">
@@ -182,8 +210,23 @@
             <div class="window-bar">
                 <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
             </div>
-            <iframe src="game1.html" title="CrazyFish" allowfullscreen></iframe>
+            <iframe id="game-frame" src="game1.html" title="CrazyFish" allowfullscreen></iframe>
         </div>
     </div>
+    <script>
+        (function () {
+            const restartBtn = document.getElementById('restart-btn');
+            const gameFrame = document.getElementById('game-frame');
+            const baseSrc = gameFrame.getAttribute('src');
+
+            restartBtn.addEventListener('click', function () {
+                gameFrame.src = 'about:blank';
+                requestAnimationFrame(function () {
+                    gameFrame.src = baseSrc;
+                    gameFrame.focus();
+                });
+            });
+        })();
+    </script>
 </body>
 </html>
