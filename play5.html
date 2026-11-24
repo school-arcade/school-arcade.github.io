@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="el">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PacMan • Εκπαιδευτήρια Γείτονα</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👾</text></svg>">
+    <title>Παιχνίδι 5 • Εκπαιδευτήρια Γείτονα</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👻</text></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after {
             box-sizing: border-box;
@@ -32,37 +32,46 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 12px 20px 24px 20px;
-            gap: 10px;
+            padding: 8px 16px 12px 16px;
+            gap: 8px;
         }
         .top-section {
             width: 100%;
-            max-width: 960px;
+            max-width: min(100%, 1120px, calc((100vh - 118px) * 4 / 3));
             display: flex;
             flex-direction: column;
             gap: 8px;
             flex-shrink: 0;
         }
-        .top-bar {
+        .top-banner {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            gap: 12px;
             background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(30, 37, 54, 0.96));
             padding: 8px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(56, 189, 248, 0.45);
+            border-radius: 14px;
+            border: 2px solid #38bdf8;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
         }
         .back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-height: 40px;
             background: #38bdf8;
             color: #0f172a;
             text-decoration: none;
-            padding: 7px 14px;
+            font-family: Verdana, sans-serif;
+            padding: 10px 16px;
             border-radius: 8px;
             font-weight: 700;
             font-size: 0.85rem;
+            line-height: 1.1;
             white-space: nowrap;
+            flex-shrink: 0;
+            align-self: center;
             transition: background-color 0.2s ease, transform 0.15s ease;
         }
         .back-btn:hover, .back-btn:focus-visible {
@@ -70,41 +79,57 @@
             transform: translateY(-1px);
             outline: none;
         }
-        .game-header-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: #4ade80;
-            text-align: right;
-        }
-        .instructions-box {
-            background: rgba(30, 37, 54, 0.95);
-            border-left: 4px solid #fbbf24;
-            border-top: 1px solid rgba(251, 191, 36, 0.25);
-            border-right: 1px solid rgba(251, 191, 36, 0.25);
-            border-bottom: 1px solid rgba(251, 191, 36, 0.25);
-            border-radius: 10px;
-            padding: 8px 15px;
+        .banner-lines {
+            flex: 1;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
+            gap: 3px;
         }
-        .instructions-title {
-            font-size: 0.9rem;
-            color: #fbbf24;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-        .instructions-text {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1.2rem;
+        .banner-tip,
+        .banner-tip-sub {
+            font-family: Verdana, sans-serif;
+            font-size: 1.05rem;
             color: #e2e8f0;
             margin: 0;
-            line-height: 1.25;
+            line-height: 1.28;
+            text-align: center;
+        }
+        .restart-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-height: 40px;
+            background: #4ade80;
+            color: #0f172a;
+            border: none;
+            cursor: pointer;
+            font-family: Verdana, sans-serif;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            line-height: 1.1;
+            white-space: nowrap;
+            flex-shrink: 0;
+            align-self: center;
+            transition: background-color 0.2s ease, transform 0.15s ease;
+        }
+        .restart-btn:hover, .restart-btn:focus-visible {
+            background: #22c55e;
+            transform: translateY(-1px);
+            outline: none;
+        }
+        .btn-icon {
+            font-size: 1.05rem;
+            line-height: 1;
         }
         .main-area {
             flex: 1;
             width: 100%;
-            max-width: 960px;
+            max-width: 1200px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -112,7 +137,8 @@
         }
         .game-wrapper {
             width: 100%;
-            max-width: min(100%, 760px);
+            max-width: min(100%, 1120px, calc((100vh - 118px) * 4 / 3));
+            max-height: calc(100vh - 118px);
             aspect-ratio: 4 / 3;
             background: #0f172a;
             border: 2px solid #38bdf8;
@@ -124,7 +150,7 @@
         }
         .window-bar {
             background: #0f172a;
-            padding: 7px 12px;
+            padding: 6px 12px;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -147,20 +173,35 @@
             background: #000;
             display: block;
         }
-        @media (max-width: 640px) {
+        @media (max-width: 720px) {
             body { padding: 10px 12px 24px 12px; }
-            .top-bar { padding: 8px 10px; }
-            .back-btn { padding: 6px 10px; font-size: 0.78rem; }
-            .game-header-title { font-size: 0.92rem; }
-            .instructions-box {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 4px;
-                padding: 8px 12px;
+            .top-section { max-width: 100%; }
+            .top-banner {
+                flex-wrap: wrap;
+                padding: 8px 10px;
+                gap: 8px;
+                border-radius: 12px;
             }
-            .instructions-text { font-size: 1.08rem; }
+            .back-btn, .restart-btn {
+                min-height: 36px;
+                padding: 8px 12px;
+                font-size: 0.78rem;
+            }
+            .back-btn { order: 1; }
+            .restart-btn { order: 2; }
+            .banner-lines {
+                order: 3;
+                flex: 1 1 100%;
+                align-items: flex-start;
+            }
+            .banner-tip,
+            .banner-tip-sub {
+                font-size: 0.95rem;
+                text-align: left;
+            }
             .game-wrapper {
                 max-width: 100%;
+                max-height: none;
                 border-radius: 12px;
             }
         }
@@ -168,13 +209,13 @@
 </head>
 <body>
     <div class="top-section">
-        <div class="top-bar">
-            <a href="index.html" class="back-btn">← Πίσω στο Μενού</a>
-            <div class="game-header-title">&gt;_ PacMan</div>
-        </div>
-        <div class="instructions-box">
-            <div class="instructions-title">📝 Οδηγίες:</div>
-            <p class="instructions-text">Πάτησε την πράσινη σημαία για να ξεκινήσεις. Χρησιμοποίησε τα βελάκια για να φας το φαγητό και να αποφύγεις τα φαντάσματα!</p>
+        <div class="top-banner">
+            <a href="index.html" class="back-btn"><span class="btn-icon" aria-hidden="true">‹</span><span>Πίσω στο Μενού</span></a>
+            <div class="banner-lines">
+                <p class="banner-tip">Πάτησε την πράσινη σημαία για να ξεκινήσεις.</p>
+                <p class="banner-tip-sub">Χρησιμοποίησε τα βελάκια για να φας το φαγητό και να αποφύγεις τα φαντάσματα!</p>
+            </div>
+            <button type="button" id="restart-btn" class="restart-btn"><span class="btn-icon" aria-hidden="true">⟲</span><span>Παίξε ξανά</span></button>
         </div>
     </div>
     <div class="main-area">
@@ -182,8 +223,23 @@
             <div class="window-bar">
                 <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
             </div>
-            <iframe src="game5.html" title="PacMan" allowfullscreen></iframe>
+            <iframe id="game-frame" src="game5.html" title="Παιχνίδι 5" allowfullscreen></iframe>
         </div>
     </div>
+    <script>
+        (function () {
+            const restartBtn = document.getElementById('restart-btn');
+            const gameFrame = document.getElementById('game-frame');
+            const baseSrc = gameFrame.getAttribute('src');
+
+            restartBtn.addEventListener('click', function () {
+                gameFrame.src = 'about:blank';
+                requestAnimationFrame(function () {
+                    gameFrame.src = baseSrc;
+                    gameFrame.focus();
+                });
+            });
+        })();
+    </script>
 </body>
 </html>

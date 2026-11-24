@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="el">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
             background-image: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.14), transparent 60%), linear-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.08) 1px, transparent 1px);
             background-size: 100% 100%, 30px 30px, 30px 30px;
             color: #f8fafc; font-family: 'Fira Code', monospace;
-            display: block; min-height: 100vh; padding: 12px 20px 40px 20px; position: relative;
+            display: block; min-height: 100vh; padding: 16px 20px 40px 20px; position: relative;
         }
         .bg-gp { position: fixed; z-index: 0; pointer-events: none; opacity: 0.34; font-size: clamp(4.5rem, 11vw, 11rem); animation: float 7s ease-in-out infinite; }
         .gp1 { top: 1%; left: 1.5%; transform: rotate(-16deg); filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.75)); }
@@ -26,37 +26,13 @@
         @keyframes float { 0%, 100% { margin-top: 0px; } 50% { margin-top: -16px; } }
         .wrapper { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1050px; margin: 0 auto; }
 
-        .top-logo-banner {
-            width: 100%;
-            background: #e0f2fe;
-            border: 2px solid #38bdf8;
-            border-radius: 18px;
-            padding: 5px 16px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55), 0 0 22px rgba(56, 189, 248, 0.32);
-        }
-        .top-logo-banner img {
-            height: 115px;
-            width: auto;
-            max-width: 100%;
-            display: block;
-            object-fit: contain;
-        }
-        @media (max-width: 640px) {
-            .top-logo-banner { padding: 4px 12px; border-radius: 14px; }
-            .top-logo-banner img { height: 78px; }
-        }
-
         .unified-hero-banner {
             width: 100%;
             background: linear-gradient(145deg, rgba(15, 23, 42, 0.96) 0%, rgba(23, 33, 54, 0.96) 100%);
             border: 2px solid #38bdf8;
             border-radius: 18px;
-            padding: 12px 14px 14px 14px;
-            margin-bottom: 16px;
+            padding: 14px 16px 16px 16px;
+            margin-bottom: 18px;
             text-align: center;
             position: relative;
             container-type: inline-size;
@@ -129,7 +105,6 @@
     <div class="bg-gp gp3" aria-hidden="true">🎮</div>
     <div class="bg-gp gp4" aria-hidden="true">🕹️</div>
     <div class="wrapper">
-        <div class="top-logo-banner"><img src="logo.png" alt="Εκπαιδευτήρια Γείτονα" onerror="this.parentElement.style.display='none'"></div>
         <div class="unified-hero-banner">
             <h1><span class="prompt">&gt;_</span> Scratch Gaming</h1>
             <div class="hero-divider"></div>
