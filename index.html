@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scratch Gaming</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; min-height: 100%; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+        body {
+            background-color: #131722;
+            background-image: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.14), transparent 60%), linear-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+            background-size: 100% 100%, 30px 30px, 30px 30px;
+            color: #f8fafc; font-family: 'Fira Code', monospace;
+            display: block; min-height: 100vh; padding: 16px 20px 40px 20px; position: relative;
+        }
+        .bg-gp { position: fixed; z-index: 0; pointer-events: none; opacity: 0.34; font-size: clamp(4.5rem, 11vw, 11rem); animation: float 7s ease-in-out infinite; }
+        .gp1 { top: 1%; left: 1.5%; transform: rotate(-16deg); filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.75)); }
+        .gp2 { top: 2%; right: 1.5%; transform: rotate(16deg); animation-delay: 1.5s; filter: drop-shadow(0 0 22px rgba(74, 222, 128, 0.75)); }
+        .gp3 { bottom: 2%; left: 2%; transform: rotate(14deg); animation-delay: 3s; filter: drop-shadow(0 0 22px rgba(251, 191, 36, 0.75)); }
+        .gp4 { bottom: 3%; right: 2%; transform: rotate(-15deg); animation-delay: 2s; filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.75)); }
+        @keyframes float { 0%, 100% { margin-top: 0px; } 50% { margin-top: -16px; } }
+        .wrapper { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1050px; margin: 0 auto; }
+
+        .unified-hero-banner {
+            width: 100%;
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.96) 0%, rgba(23, 33, 54, 0.96) 100%);
+            border: 2px solid #38bdf8;
+            border-radius: 18px;
+            padding: 14px 16px 16px 16px;
+            margin-bottom: 18px;
+            text-align: center;
+            position: relative;
+            container-type: inline-size;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 28px rgba(56, 189, 248, 0.35), inset 0 0 20px rgba(56, 189, 248, 0.08);
+        }
+        .unified-hero-banner h1 {
+            font-size: clamp(1.75rem, 4.5vw, 2.6rem);
+            margin: 0 0 8px 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #ffffff;
+            text-shadow: 0 2px 14px rgba(56, 189, 248, 0.45);
+        }
+        .unified-hero-banner .prompt { color: #ffffff; }
+        .hero-divider {
+            height: 1px;
+            width: 100%;
+            margin: 0 auto 9px auto;
+            background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.7), transparent);
+        }
+        .hero-subtitle {
+            display: block;
+            width: 100%;
+            font-size: clamp(5px, 1.56cqw, 16px);
+            font-weight: 700;
+            color: #e2e8f0;
+            line-height: 1.4;
+            white-space: nowrap;
+            letter-spacing: -0.02em;
+        }
+        @media (max-width: 640px) {
+            .hero-subtitle {
+                white-space: normal;
+                font-size: 0.78rem;
+                line-height: 1.5;
+                letter-spacing: 0;
+            }
+        }
+        .hl-gold { color: #fbbf24; } .hl-green { color: #4ade80; } .hl-blue { color: #38bdf8; }
+
+        .games {
+            display: grid;
+            grid-template-columns: repeat(8, minmax(0, 1fr));
+            gap: 12px;
+            width: 100%;
+        }
+        .card { grid-column: span 2; width: 100%; background: linear-gradient(145deg, rgba(15, 23, 42, 0.96) 0%, rgba(23, 33, 54, 0.96) 100%); border: 2px solid #38bdf8; border-radius: 14px; text-decoration: none; color: white; overflow: hidden; transition: 0.25s; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45), 0 0 14px rgba(56, 189, 248, 0.22); display: flex; flex-direction: column; }
+        .games .card:nth-child(9) { grid-column: 2 / span 2; }
+        .games .card:nth-child(10) { grid-column: 4 / span 2; }
+        .games .card:nth-child(11) { grid-column: 6 / span 2; }
+        @media (max-width: 768px) {
+            .games { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .card,
+            .games .card:nth-child(9),
+            .games .card:nth-child(10),
+            .games .card:nth-child(11) { grid-column: span 1; }
+        }
+        @media (max-width: 480px) {
+            .games { grid-template-columns: minmax(0, 1fr); }
+            .card,
+            .games .card:nth-child(9),
+            .games .card:nth-child(10),
+            .games .card:nth-child(11) { grid-column: span 1; }
+        }
+        .card:hover, .card:focus-visible { transform: translateY(-4px) scale(1.02); border-color: #4ade80; box-shadow: 0 12px 25px rgba(74, 222, 128, 0.3); outline: none; }
+        .bar { background: #0f172a; padding: 5px 10px; display: flex; align-items: center; gap: 5px; border-bottom: 1px solid rgba(56, 189, 248, 0.35); }
+        .dot { width: 7px; height: 7px; border-radius: 50%; }
+        .r { background: #ef4444; } .y { background: #f59e0b; } .g { background: #10b981; }
+        .body { padding: 9px 12px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; align-items: center; }
+        .art { width: 46px; height: 46px; border-radius: 12px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(56, 189, 248, 0.4); display: flex; align-items: center; justify-content: center; margin-bottom: 6px; font-size: 1.5rem; }
+        .title { font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: #38bdf8; }
+        .btn { background: #4ade80; color: #0f172a; padding: 7px 10px; border-radius: 7px; font-weight: 700; font-size: 0.78rem; width: 100%; transition: background-color 0.2s ease; }
+        .card:hover .btn, .card:focus-visible .btn { background: #22c55e; }
+    </style>
+</head>
+<body>
+    <div class="bg-gp gp1" aria-hidden="true">🕹️</div>
+    <div class="bg-gp gp2" aria-hidden="true">👾</div>
+    <div class="bg-gp gp3" aria-hidden="true">🎮</div>
+    <div class="bg-gp gp4" aria-hidden="true">🕹️</div>
+    <div class="wrapper">
+        <div class="unified-hero-banner">
+            <h1><span class="prompt">&gt;_</span> Scratch Gaming</h1>
+            <div class="hero-divider"></div>
+            <div class="hero-subtitle">
+                <span class="hl-blue">//</span> VideoGames φτιαγμένα από <span class="hl-gold">μαθητές Α Γυμνασίου</span> με <span class="hl-green">Scratch</span> • Πρόγραμμα σπουδών <span class="hl-blue">Πληροφορικής Α Γυμνασίου</span>
+            </div>
+        </div>
+        <div class="games">
+            <a href="play1.html" class="card"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><div class="body"><div class="art">🐠</div><div class="title">CrazyFish</div><div class="btn">▶ ΠΑΙΞΕ CRAZYFISH</div></div></a>
+            <a href="play2.html" class="card"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><div class="body"><div class="art">🥚</div><div class="title">Σιγά τα αυγά!</div><div class="btn">▶ ΠΑΙΞΕ ΣΙΓΑ ΤΑ ΑΥΓΑ!</div></div></a>
+            <a href="play3.html" class="card"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><div class="body"><div class="art">🛣️</div><div class="title">Road</div><div class="btn">▶ ΠΑΙΞΕ ROAD</div></div></a>
+            <a href="play4.html" class="card"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><div class="body"><div class="art">🧮</div><div class="title">Calculator</div><div class="btn">▶ ΑΝΟΙΞΕ CALCULATOR</div></div></a>
+            <a href="play5.html" class="card"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><div class="body"><div class="art">👾</div><div class="title">PacMan</div><div class="btn">▶ ΠΑΙΞΕ PACMAN</div></div></a>
+            <a href="play6.html" class="card"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><div class="body"><div class="art">🌀</div><div class="title">Maze</div><div class="btn">▶ ΠΑΙΞΕ MAZE</div></div></a>
+            <a href="play7.html" class="card"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><div class="body"><div class="art">🧱</div><div class="title">Arkanoid</div><div class="btn">▶ ΠΑΙΞΕ ARKANOID</div></div></a>
+            <a href="play8.html" class="card"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><div class="body"><div class="art">🐢</div><div class="title">Turtle</div><div class="btn">▶ ΠΑΙΞΕ TURTLE</div></div></a>
+            <a href="play9.html" class="card"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><div class="body"><div class="art">🐍</div><div class="title">Snake</div><div class="btn">▶ ΠΑΙΞΕ SNAKE</div></div></a>
+            <a href="Play10.html" class="card"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><div class="body"><div class="art">🦜</div><div class="title">FlappyParrot</div><div class="btn">▶ ΠΑΙΞΕ FLAPPYPARROT</div></div></a>
+            <a href="play11.html" class="card"><div class="bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div><div class="body"><div class="art">👻</div><div class="title">PacMan II</div><div class="btn">▶ ΠΑΙΞΕ PACMAN II</div></div></a>
+        </div>
+    </div>
+</body>
+</html>
